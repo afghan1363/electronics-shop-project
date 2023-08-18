@@ -34,4 +34,4 @@ def test_repr(item):
 
 def test_str(item):
     item.name = "СуперСмартфон"
-    assert  item.__str__() == "Суперсмарт"
+    assert  item.__str__() == "СуперСмарт"
