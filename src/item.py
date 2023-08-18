@@ -47,7 +47,17 @@ class Item:
         """
         self.price *= self.pay_rate
 
+    def __repr__(self):
+        """
+        Информация о классе
+        """
+        return f"{__class__.__name__}({self.__name}, {self.price}, {self.quantity})"
 
+    def __str__(self):
+        """
+        Информация о классе
+        """
+        return self.__name
 
     @classmethod
     def instantiate_from_csv(cls):
