@@ -51,7 +51,7 @@ class Item:
         """
         Информация о классе
         """
-        return f"{__class__.__name__}({self.__name}, {self.price}, {self.quantity})"
+        return f"{__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
 
     def __str__(self):
         """

@@ -30,7 +30,7 @@ def test_instantiate_from_csv():
 
 
 def test_repr(item):
-    assert item.__repr__() == "Item(Смартфон, 60000, 10)"
+    assert item.__repr__() == "Item('Смартфон', 60000, 10)"
 
 def test_str(item):
     item.name = "СуперСмартфон"
