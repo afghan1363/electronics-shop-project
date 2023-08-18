@@ -49,13 +49,13 @@ class Item:
 
     def __repr__(self):
         """
-        Информация о классе
+        Информация о классе: значения экземпляров.
         """
         return f"{__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
 
     def __str__(self):
         """
-        Информация о классе
+        Информация о классе: значение поля self.name
         """
         return self.__name
 
