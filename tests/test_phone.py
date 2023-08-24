@@ -30,4 +30,8 @@ def test_add(item, phone, t_class):
         item + t_class
 
 
-
+def test_number_of_sim(phone):
+    with pytest.raises(ValueError):
+        phone.number_of_sim = 2.56
+    with pytest.raises(ValueError):
+        phone.number_of_sim = -5
