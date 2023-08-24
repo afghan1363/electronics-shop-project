@@ -47,6 +47,13 @@ class Item:
         """
         self.price *= self.pay_rate
 
+    def __add__(self, other):
+        """Сложение атрибутов класса и его подклассов"""
+        if issubclass(other.__class__, self.__class__):
+            return self.quantity + other.quantity
+        else:
+            raise ValueError("Сложение атрибутов неродственных классов")
+
     def __repr__(self):
         """
         Информация о классе: значения экземпляров.
@@ -61,6 +68,7 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls):
+        """Создание экземпляров класса из файла .csv"""
         path_to_csv = os.path.join("..", "src", "items.csv")
         with open(path_to_csv, encoding="cp1251") as csv_data:
             reader = csv.DictReader(csv_data, delimiter=",")
@@ -70,3 +78,9 @@ class Item:
     @staticmethod
     def string_to_number(str_int):
         return int(float(str_int))
+
+
+class TempClass:
+    """Класс для теста"""
+    def __init__(self, quantity):
+        self.quantity = quantity
