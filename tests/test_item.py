@@ -32,6 +32,12 @@ def test_instantiate_from_csv():
 def test_repr(item):
     assert item.__repr__() == "Item('Смартфон', 60000, 10)"
 
+
 def test_str(item):
     item.name = "СуперСмартфон"
     assert item.__str__() == "СуперСмарт"
+
+
+def test_add(item):
+    with pytest.raises(ValueError):
+        item + 1000
