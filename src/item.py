@@ -50,7 +50,7 @@ class Item(ABC):
 
     def __add__(self, other):
         """Сложение атрибутов класса и его подклассов"""
-        if issubclass(other.__class__, self.__class__):
+        if isinstance(other, self.__class__):
             return self.quantity + other.quantity
         else:
             raise ValueError("Сложение атрибутов неродственных классов")
