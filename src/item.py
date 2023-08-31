@@ -1,6 +1,8 @@
 import csv
 import os.path
 from abc import ABC, abstractmethod
+from os import path
+
 from src.exceptions import InstantiateCSVError
 
 
@@ -68,12 +70,40 @@ class Item(ABC):
         """
         return self.__name
 
+    """
+    Я сделал два варианта работы. В одном исключения обрабатываются try - except,
+    в другом исключения выбрасываются с сообщением. У нас со студентами спор возник, как надо, вот и сделал
+    оба варианта, на всякий случай
+    """
+    # @classmethod
+    # def instantiate_from_csv(cls):                            # Первый вариант
+    #     """Создание экземпляров класса из файла .csv"""
+    #     path_to_csv = os.path.join("..", "src", "items_damaged.csv")
+    #     file_name = os.path.basename(path_to_csv)
+    #     try:
+    #         with open(path_to_csv, encoding="cp1251") as csv_data:
+    #             reader = csv.DictReader(csv_data, delimiter=",")
+    #             row_keys = ("name", "price", "quantity")
+    #             for row in reader:
+    #                 if row_keys[0] and row_keys[1] and row_keys[2] in row:
+    #                     item = cls(row["name"], row["price"], row["quantity"])
+    #                 else:
+    #                     raise InstantiateCSVError(file_name)
+    #     except FileNotFoundError:
+    #         print(f"Отсутствует файл {file_name}")
+    #     except InstantiateCSVError as ex:
+    #         print(ex.__str__())
+
     @classmethod
-    def instantiate_from_csv(cls):
-        """Создание экземпляров класса из файла .csv"""
-        path_to_csv = os.path.join("..", "src", "items_urn.csv")
+    def instantiate_from_csv(cls, path_to_csv=None):                                      # Второй вариант
+        """
+        Создание экземпляров класса из файла csv
+        """
+        path_to_csv = os.path.join("..", "src", "items_damaged.csv")
         file_name = os.path.basename(path_to_csv)
-        try:
+        if not path.exists(path_to_csv):
+            raise FileNotFoundError(f"Файл {file_name} не найден")
+        else:
             with open(path_to_csv, encoding="cp1251") as csv_data:
                 reader = csv.DictReader(csv_data, delimiter=",")
                 row_keys = ("name", "price", "quantity")
@@ -82,10 +112,7 @@ class Item(ABC):
                         item = cls(row["name"], row["price"], row["quantity"])
                     else:
                         raise InstantiateCSVError(file_name)
-        except FileNotFoundError:
-            print(f"Отсутствует файл {file_name}")
-        except InstantiateCSVError as ex:
-            print(ex.__str__())
+
 
 
     @staticmethod
