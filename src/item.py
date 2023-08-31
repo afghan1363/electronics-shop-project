@@ -1,6 +1,7 @@
 import csv
 import os.path
 from abc import ABC, abstractmethod
+from src.exceptions import InstantiateCSVError
 
 
 class Item(ABC):
@@ -70,11 +71,22 @@ class Item(ABC):
     @classmethod
     def instantiate_from_csv(cls):
         """Создание экземпляров класса из файла .csv"""
-        path_to_csv = os.path.join("..", "src", "items.csv")
-        with open(path_to_csv, encoding="cp1251") as csv_data:
-            reader = csv.DictReader(csv_data, delimiter=",")
-            for row in reader:
-                item = cls(row["name"], row["price"], row["quantity"])
+        path_to_csv = os.path.join("..", "src", "items_urn.csv")
+        file_name = os.path.basename(path_to_csv)
+        try:
+            with open(path_to_csv, encoding="cp1251") as csv_data:
+                reader = csv.DictReader(csv_data, delimiter=",")
+                row_keys = ("name", "price", "quantity")
+                for row in reader:
+                    if row_keys[0] and row_keys[1] and row_keys[2] in row:
+                        item = cls(row["name"], row["price"], row["quantity"])
+                    else:
+                        raise InstantiateCSVError(file_name)
+        except FileNotFoundError:
+            print(f"Отсутствует файл {file_name}")
+        except InstantiateCSVError as ex:
+            print(ex.__str__())
+
 
     @staticmethod
     def string_to_number(str_int):
@@ -83,5 +95,12 @@ class Item(ABC):
 
 class TempClass:
     """Класс для теста"""
+
     def __init__(self, quantity):
         self.quantity = quantity
+
+
+if __name__ == '__main__':
+    item = Item('Телефон', 10000, 5)
+
+    print(Item.instantiate_from_csv())
