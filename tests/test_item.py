@@ -30,7 +30,7 @@ def test_instantiate_from_csv():
     assert Item.instantiate_from_csv() == print(InstantiateCSVError)
 
 
-path_not_exist = "items.csv"
+path_not_exist = os.path.join("..", "src", "items.csv")
 path_to_damaged = os.path.join("..", "src", "items_damaged.csv")
 
 
