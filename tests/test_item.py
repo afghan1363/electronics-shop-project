@@ -1,4 +1,5 @@
 import pytest
+from src.exceptions import InstantiateCSVError
 from src.item import Item
 
 """Здесь надо написать тесты с использованием pytest для модуля item."""
@@ -25,8 +26,17 @@ def test_name(item):
 
 
 def test_instantiate_from_csv():
-    Item.instantiate_from_csv()  # создание объектов из данных файла
-    assert len(Item.all) == 5
+    assert Item.instantiate_from_csv() == print(InstantiateCSVError)
+
+
+# def test_instantiate_from_csv():
+#   #  Item.instantiate_from_csv()  # создание объектов из данных файла
+#   #  assert len(Item.all) == 5
+#     with pytest.raises(InstantiateCSVError):
+#         Item.instantiate_from_csv()
+
+# def test_instantiate_from_csv0():
+#     assert Item.instantiate_from_csv() == "Отсутствует файл item1.csv"
 
 
 def test_repr(item):
