@@ -1,3 +1,4 @@
+import os.path
 import pytest
 from src.exceptions import InstantiateCSVError
 from src.item import Item
@@ -29,14 +30,20 @@ def test_instantiate_from_csv():
     assert Item.instantiate_from_csv() == print(InstantiateCSVError)
 
 
-# def test_instantiate_from_csv():
-#   #  Item.instantiate_from_csv()  # создание объектов из данных файла
-#   #  assert len(Item.all) == 5
-#     with pytest.raises(InstantiateCSVError):
-#         Item.instantiate_from_csv()
+path_not_exist = "items.csv"
+path_to_damaged = os.path.join("..", "src", "items_damaged.csv")
 
-# def test_instantiate_from_csv0():
-#     assert Item.instantiate_from_csv() == "Отсутствует файл item1.csv"
+
+def test_instantiate_from_csv():
+    #  Item.instantiate_from_csv()  # создание объектов из данных файла
+    #  assert len(Item.all) == 5
+    with pytest.raises(InstantiateCSVError):
+        Item.instantiate_from_csv(path_to_damaged)
+
+
+def test_instantiate_from_csv0():
+    with pytest.raises(FileNotFoundError):
+        Item.instantiate_from_csv(path_not_exist)
 
 
 def test_repr(item):
