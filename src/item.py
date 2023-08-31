@@ -95,11 +95,11 @@ class Item(ABC):
     #         print(ex.__str__())
 
     @classmethod
-    def instantiate_from_csv(cls, path_to_csv=None):                                      # Второй вариант
+    def instantiate_from_csv(cls, path_to_csv=os.path.join("..", "src", "items_damaged.csv")):      # Второй вариант
         """
         Создание экземпляров класса из файла csv
         """
-        path_to_csv = os.path.join("..", "src", "items_damaged.csv")
+       # path_to_csv = os.path.join("..", "src", "items_damage.csv")
         file_name = os.path.basename(path_to_csv)
         if not path.exists(path_to_csv):
             raise FileNotFoundError(f"Файл {file_name} не найден")
