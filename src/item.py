@@ -75,6 +75,7 @@ class Item(ABC):
     в другом исключения выбрасываются с сообщением. У нас со студентами спор возник, как надо, вот и сделал
     оба варианта, на всякий случай
     """
+
     # @classmethod
     # def instantiate_from_csv(cls):                            # Первый вариант
     #     """Создание экземпляров класса из файла .csv"""
@@ -95,11 +96,11 @@ class Item(ABC):
     #         print(ex.__str__())
 
     @classmethod
-    def instantiate_from_csv(cls, path_to_csv=os.path.join("..", "src", "items_damaged.csv")):      # Второй вариант
+    def instantiate_from_csv(cls, path_to_csv=os.path.join("..", "src", "items_damaged.csv")):  # Второй вариант
         """
         Создание экземпляров класса из файла csv
         """
-       # path_to_csv = os.path.join("..", "src", "items_damage.csv")
+        # path_to_csv = os.path.join("..", "src", "items_damage.csv")
         file_name = os.path.basename(path_to_csv)
         if not path.exists(path_to_csv):
             raise FileNotFoundError(f"Файл {file_name} не найден")
@@ -112,8 +113,6 @@ class Item(ABC):
                         item = cls(row["name"], row["price"], row["quantity"])
                     else:
                         raise InstantiateCSVError(file_name)
-
-
 
     @staticmethod
     def string_to_number(str_int):
